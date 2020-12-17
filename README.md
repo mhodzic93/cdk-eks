@@ -22,48 +22,51 @@ to deploy a simple hello-world container into the provisioned EKS cluster.
     pip install -r requirements.txt
     ```
 
-4. Synthesize the CloudFormation template. Replace `ACCOUNT` with your AWS Account ID and replace `REGION`
-   with the AWS region that you are deploying into.
+4. Set the required environment variables. `ACCOUNT` is your AWS Account ID and `REGION`
+   is the AWS region that you are deploying into.
     ```
-    cdk synth --context ACCOUNT=<ACCOUNT> --context REGION=<REGION>
-    ```
-
-5. Deploy the CDK Toolkit stack. Replace `ACCOUNT` with your AWS Account ID and replace `REGION`
-   with the AWS region that you are deploying into.
-    ```
-    cdk bootstrap aws://<ACCOUNT>/<REGION>
+    export ACCOUNT=<ACCOUNT>
+    export REGION=<REGION>
     ```
 
-6. Deploy the stack. Replace `ACCOUNT` with your AWS Account ID and replace `REGION`
-   with the AWS region that you are deploying into. When prompted if you wish to deploy
-   the changes, enter `y` to deploy.
+5. Synthesize the CloudFormation template.
+    ```
+    cdk synth --context ACCOUNT=$ACCOUNT --context REGION=$REGION
+    ```
+
+6. Deploy the CDK Toolkit stack.
+    ```
+    cdk bootstrap aws://$ACCOUNT/$REGION
+    ```
+
+7. Deploy the stack. When prompted if you wish to deploy the changes, enter `y` to deploy.
    ```
    cdk deploy
    ```
 
-7. When you have deployed the stack, you will see an output containing a command to update
+8. When you have deployed the stack, you will see an output containing a command to update
    kubeconfig. Copy this command and execute it. If this command was executed successfully, you 
    should receive a response similar to: 
     ```
     Updated context arn:aws:eks:<REGION>:<ACCOUNT_ID>:cluster/<CLUSTER_NAME> in ~/.kube/config
     ```
 
-8. Verify that you are now able to use kubectl by running:
+9. Verify that you are now able to use kubectl by running:
     ```
     kubectl get nodes
     ```
 
-9. Deploy the hello-world application into the cluster:
+10. Deploy the hello-world application into the cluster:
     ```
     kubectl apply -f ./manifest.yaml 
     ```
 
-10. Create a Service object to exposes the deployment:
+11. Create a Service object to exposes the deployment:
     ```
     kubectl expose deployment hello-world --type=LoadBalancer --name=load-balancer
     ```
 
-11. Get the external IP address and the port and navigate to the site to verify the service has been
+12. Get the external IP address and the port and navigate to the site to verify the service has been
     deployed successfully:
     ```
     ADDRESS=$(kubectl get service load-balancer -o json | jq -r '.status.loadBalancer.ingress[].hostname')
