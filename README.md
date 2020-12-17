@@ -4,7 +4,7 @@ This repository contains AWS CDK code that deploys an EKS cluster as well as a k
 to deploy a simple hello-world container into the provisioned EKS cluster.
 
 ## Pre-Requisites
-1. The pre-requisites required for running CDK can be found here: https://cdkworkshop.com/15-prerequisites.html
+1. The pre-requisites required for using CDK can be found here: https://cdkworkshop.com/15-prerequisites.html
 2. Install kubectl: https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html
 3. Install jq: https://stedolan.github.io/jq/download/
 
