@@ -25,7 +25,7 @@ to deploy a simple hello-world container into the provisioned EKS cluster.
 4. Synthesize the CloudFormation template. Replace `ACCOUNT` with your AWS Account ID and replace `REGION`
    with the AWS region that you are deploying into.
     ```
-    cdk synth --contect ACCOUNT=<ACCOUNT> --contect REGION=<REGION>
+    cdk synth --context ACCOUNT=<ACCOUNT> --context REGION=<REGION>
     ```
 
 5. Deploy the CDK Toolkit stack. Replace `ACCOUNT` with your AWS Account ID and replace `REGION`
